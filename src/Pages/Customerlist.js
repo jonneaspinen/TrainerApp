@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import Button from '@mui/material/Button'
 import Snackbar from '@mui/material/Snackbar';
-import AddCustomer from './AddCustomer';
-import EditCustomer from './EditCustomer';
+import AddCustomer from '../components/AddCustomer';
+import EditCustomer from '../components/EditCustomer';
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
@@ -87,47 +87,61 @@ function Customerlist() {
 
     // taulukon kolumnit
     const columns = [
-        { field: 'firstname',
-        sortable: true,
-        filter: true,
-        floatingFilter: true,
-        width: 140 },
+        {
+            field: 'firstname',
+            sortable: true,
+            filter: true,
+            floatingFilter: true,
+            width: 140
+        },
 
-        { field: 'lastname',
-        sortable: true,
-        filter: true,
-        floatingFilter: true,
-        width: 140 },
+        {
+            field: 'lastname',
+            sortable: true,
+            filter: true,
+            floatingFilter: true,
+            width: 140
+        },
 
-        { field: 'streetaddress',
-        sortable: true,
-        filter: true,
-        floatingFilter: true,
-        width: 240 },
+        {
+            field: 'streetaddress',
+            sortable: true,
+            filter: true,
+            floatingFilter: true,
+            width: 240
+        },
 
-        { field: 'postcode',
-        sortable: true,
-        filter: true,
-        floatingFilter: true,
-        width: 120 },
+        {
+            field: 'postcode',
+            sortable: true,
+            filter: true,
+            floatingFilter: true,
+            width: 120
+        },
 
-        { field: 'city',
-        sortable: true,
-        filter: true,
-        floatingFilter: true,
-        width: 140 },
+        {
+            field: 'city',
+            sortable: true,
+            filter: true,
+            floatingFilter: true,
+            width: 140
+        },
 
-        { field: 'email',
-        sortable: true,
-        filter: true,
-        floatingFilter:
-        true, width: 240 },
+        {
+            field: 'email',
+            sortable: true,
+            filter: true,
+            floatingFilter:
+                true, width: 240
+        },
 
-        { field: 'phone',
-        sortable: true,
-        filter: true,
-        floatingFilter: true,
-        width: 140 },
+        {
+            field: 'phone',
+            sortable: true,
+            filter: true,
+            floatingFilter: true,
+            width: 140
+        },
 
         {
             headerName: '',
@@ -151,14 +165,21 @@ function Customerlist() {
 
     return (
         <React.Fragment>
-            <br/>
-            <AddCustomer addCustomer={addCustomer} /> { /* asiakkaan lisäys painike */ }
-            <div className="ag-theme-material" style={{ height: 800, width: 1400, margin: 'auto' }}>
+            <br />
+            <AddCustomer addCustomer={addCustomer} /> { /* asiakkaan lisäys painike */}
+            <div
+                className="ag-theme-material"
+                style={{
+                    height: 750,
+                    width: 1400,
+                    margin: 'auto'
+                }}>
+
                 <AgGridReact
                     rowData={customers}
                     columnDefs={columns}
                     pagination={true}
-                    paginationPageSize={25}
+                    paginationPageSize={12}
                     suppressCellSelection={true}
                 />
 
