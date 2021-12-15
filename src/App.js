@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';

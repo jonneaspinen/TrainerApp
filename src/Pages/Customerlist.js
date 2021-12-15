@@ -7,6 +7,7 @@ import EditCustomer from '../components/EditCustomer';
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
+import AddTraining from '../components/AddTraining';
 
 
 function Customerlist() {
@@ -38,6 +39,7 @@ function Customerlist() {
                         fetchCustomers();
                         setMsg('Successfully deleted!');
                         setOpen(true);
+                        console.log(url);
                     }
                     else {
                         alert('Something went wrong');
@@ -160,7 +162,16 @@ function Customerlist() {
                     color='error'>
                     Delete
                 </Button>
+        },
+        /**
+        {
+            headerName: '',
+            field: 'links.0.href',
+            width: 240,
+            cellRendererFramework: params =>
+                <AddTraining addNewTraining={addNewTraining} params={params} />
         }
+        */
     ]
 
     return (

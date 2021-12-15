@@ -6,17 +6,14 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
-function AddCustomer(props) {
+function AddTraining(props) {
 
     const [open, setOpen] = useState(false);
-    const [customer, setCustomer] = useState({
-        firstname: '',
-        lastname: '',
-        streetaddress: '',
-        postcode: '',
-        city: '',
-        email: '',
-        phone: '',
+    const [training, setTraining] = useState({
+        date: '',
+        duration: '',
+        activity: '',
+        //customer: '',
     });
 
     const handleClickOpen = () => {
@@ -28,85 +25,60 @@ function AddCustomer(props) {
     };
 
     const handleSave = () => {
-        props.addCustomer(customer);
+        props.addTraining(training);
         setOpen(false);
     }
 
     const inputChanged = (event) => {
-        setCustomer({ ...customer, [event.target.name]: event.target.value });
+        setTraining({ ...training, [event.target.name]: event.target.value });
     }
 
     return (
         <div>
             <Button variant="outlined" onClick={handleClickOpen}>
-                Add customer
+                Add training
             </Button>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>New customer</DialogTitle>
+                <DialogTitle>New training</DialogTitle>
                 <DialogContent>
-                    <TextField
-                        name="firstname"
-                        value={customer.firstname}
+                <TextField
+                        name="date"
+                        value={training.date}
                         onChange={inputChanged}
                         margin="dense"
-                        label="First name"
+                        label="date"
                         fullWidth
                         variant="standard"
                     />
                     <TextField
-                        name="lastname"
-                        value={customer.lastname}
+                        name="duration"
+                        value={training.duration}
                         onChange={inputChanged}
                         margin="dense"
-                        label="Last name"
+                        label="duration"
                         fullWidth
                         variant="standard"
                     />
                     <TextField
-                        name="streetaddress"
-                        value={customer.streetaddress}
+                        name="activity"
+                        value={training.activity}
                         onChange={inputChanged}
                         margin="dense"
-                        label="Address"
+                        label="activity"
                         fullWidth
                         variant="standard"
                     />
+                    {/** 
                     <TextField
-                        name="postcode"
+                        name="customer"
                         value={customer.postcode}
                         onChange={inputChanged}
                         margin="dense"
-                        label="Postcode"
+                        label="Customer"
                         fullWidth
                         variant="standard"
                     />
-                    <TextField
-                        name="city"
-                        value={customer.city}
-                        onChange={inputChanged}
-                        margin="dense"
-                        label="City"
-                        fullWidth
-                        variant="standard"
-                    />
-                    <TextField
-                        name="email"
-                        value={customer.email}
-                        onChange={inputChanged}
-                        margin="dense"
-                        label="Email"
-                        fullWidth
-                        variant="standard"
-                    />
-                    <TextField
-                        name="phone"
-                        value={customer.phone}
-                        onChange={inputChanged}
-                        margin="dense"
-                        label="Phone"
-                        fullWidth
-                        variant="standard"
-                    />
+                    */}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
@@ -117,4 +89,4 @@ function AddCustomer(props) {
     );
 }
 
-export default AddCustomer;
+export default AddTraining;
