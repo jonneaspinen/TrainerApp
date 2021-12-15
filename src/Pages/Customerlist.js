@@ -12,10 +12,11 @@ import AddTraining from '../components/AddTraining';
 
 function Customerlist() {
 
-    // useState setit
+    // useStatet
     const [open, setOpen] = useState(false);
     const [customers, setCustomers] = useState([]);
     const [msg, setMsg] = useState('');
+    const [gridApi, setGridApi] = useState(null);
 
     // haku sivun avautuessa
     useEffect(() => {
@@ -86,9 +87,33 @@ function Customerlist() {
             })
             .catch(err => console.error(err))
     }
+    // treenin lisäys
+    const addTraining = (training) => {
+        fetch('https://customerrest.herokuapp.com/api/trainings', {
+            method: 'POST',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify(training)
+        })
+            .then(response => {
+                if (response.ok) {
+                    fetchCustomers();
+                }
+                else {
+                    alert('Something went wrong, refresh and try again...');
+                }
+            })
+            .catch(err => console.error(err))
+    }
 
     // taulukon kolumnit
     const columns = [
+        {
+            headerName: '',
+            field: 'links.0.href',
+            width: 240,
+            cellRendererFramework: params =>
+                <AddTraining addTraining={addTraining} params={params} />
+        },
         {
             field: 'firstname',
             sortable: true,
@@ -163,16 +188,17 @@ function Customerlist() {
                     Delete
                 </Button>
         },
-        /**
-        {
-            headerName: '',
-            field: 'links.0.href',
-            width: 240,
-            cellRendererFramework: params =>
-                <AddTraining addNewTraining={addNewTraining} params={params} />
-        }
-        */
+
     ]
+
+    // CSV Tiedoston exporttaamiseen
+    const onGridReady = (params) => {
+        setGridApi(params.api);
+    };
+
+    const onBtnExport = () => {
+        gridApi.exportDataAsCsv();
+    };
 
     return (
         <React.Fragment>
@@ -182,7 +208,7 @@ function Customerlist() {
                 className="ag-theme-material"
                 style={{
                     height: 750,
-                    width: 1400,
+                    width: 1650,
                     margin: 'auto'
                 }}>
 
@@ -192,9 +218,11 @@ function Customerlist() {
                     pagination={true}
                     paginationPageSize={12}
                     suppressCellSelection={true}
+                    onGridReady={onGridReady}
                 />
 
             </div>
+            <Button color='success' variant='contained' onClick={() => onBtnExport()}> Export as CSV </Button>
 
             <Snackbar /* ilmoitus onnistuneesta asiakkaan poistosta tai muokkauksesta */
                 open={open}

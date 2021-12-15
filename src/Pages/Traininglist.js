@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import Button from '@mui/material/Button'
 import Snackbar from '@mui/material/Snackbar';
-import AddTraining from '../components/AddTraining';
 import { parseISO, format } from 'date-fns'
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -30,9 +29,9 @@ function Traininglist() {
     }
 
     // treenin poisto
-    const deleteTraining = (url) => {
+    const deleteTraining = (id) => {
         if (window.confirm('Are you sure?')) {
-            fetch(url, { method: 'DELETE' })
+            fetch('https://customerrest.herokuapp.com/api/trainings/' + id, { method: 'DELETE' })
                 .then(response => {
                     if (response.ok) {
                         fetchTrainings();
@@ -47,26 +46,6 @@ function Traininglist() {
         }
     }
 
-    // treenin lisäys
-    /** 
-    const addTraining = (training) => {
-        fetch('https://customerrest.herokuapp.com/api/trainings', {
-            method: 'POST',
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify(training)
-        })
-            .then(response => {
-                if (response.ok) {
-                    fetchTrainings();
-                }
-                else {
-                    alert('Something went wrong, refresh and try again...');
-                }
-            })
-            .catch(err => console.error(err))
-    }
-    */
-
     // taulukon kolumnit
     const columns = [
         {
@@ -76,12 +55,12 @@ function Traininglist() {
             floatingFilter: true,
             width: 240
         },
-        
+
         {
             field: 'date',
             // Päivämäärän formaatti
             valueFormatter(params) {
-                return format(parseISO(params.data.date), 'dd.MM.yyyy p');
+                return format(parseISO(params.data.date), 'dd.MM.yyyy HH:mm');
             },
             sortable: true,
             filter: true,
@@ -99,7 +78,7 @@ function Traininglist() {
         },
 
         {
-            field: 'name', 
+            field: 'name',
             // Yhdistetään etunimi ja sukunimi samaan ruutuun
             valueGetter(params) {
                 return params.data.customer.firstname + ' ' + params.data.customer.lastname;
@@ -119,10 +98,10 @@ function Traininglist() {
                 <EditTraining updateTraining={updateTraining} params={params} />
         },
         */
-        
+
         {
             headerName: '',
-            field: 'data.id',
+            field: 'id',
             width: 120,
             cellRendererFramework: params =>
                 <Button

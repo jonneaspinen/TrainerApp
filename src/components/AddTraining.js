@@ -5,6 +5,10 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DateTimePicker from '@mui/lab/DateTimePicker';
+import Slider from '@mui/material/Slider';
 
 function AddTraining(props) {
 
@@ -13,7 +17,7 @@ function AddTraining(props) {
         date: '',
         duration: '',
         activity: '',
-        //customer: '',
+        customer: props.params.value
     });
 
     const handleClickOpen = () => {
@@ -33,32 +37,46 @@ function AddTraining(props) {
         setTraining({ ...training, [event.target.name]: event.target.value });
     }
 
+    // Estää käyttäjää syöttämästä päivämäärää manuaalisesti
+    const handleDateChangeRaw = (event) => {
+        event.preventDefault();
+    }
+
     return (
         <div>
             <Button variant="outlined" onClick={handleClickOpen}>
                 Add training
             </Button>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>New training</DialogTitle>
+                <DialogTitle>New training</DialogTitle><br />
                 <DialogContent>
-                <TextField
-                        name="date"
-                        value={training.date}
-                        onChange={inputChanged}
-                        margin="dense"
-                        label="date"
-                        fullWidth
-                        variant="standard"
-                    />
+
+                    {/** Päivämäärä */}
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <DateTimePicker
+                            renderInput={(params) => <TextField {...params} />}
+                            label="Choose date and time &rarr;"
+                            inputFormat="dd/MM/yyyy HH:mm"
+                            value={training.date}
+                            minDateTime={new Date()}
+                            ampm={false}
+                            onChange={(date) => {
+                                setTraining({ ...training, date: date });
+                            }}
+                            onChangeRaw={handleDateChangeRaw}
+                        />
+                    </LocalizationProvider>
+
                     <TextField
                         name="duration"
                         value={training.duration}
                         onChange={inputChanged}
                         margin="dense"
-                        label="duration"
+                        label="duration (min)"
                         fullWidth
                         variant="standard"
                     />
+
                     <TextField
                         name="activity"
                         value={training.activity}
@@ -68,17 +86,7 @@ function AddTraining(props) {
                         fullWidth
                         variant="standard"
                     />
-                    {/** 
-                    <TextField
-                        name="customer"
-                        value={customer.postcode}
-                        onChange={inputChanged}
-                        margin="dense"
-                        label="Customer"
-                        fullWidth
-                        variant="standard"
-                    />
-                    */}
+
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>

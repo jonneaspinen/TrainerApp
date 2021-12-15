@@ -38,7 +38,7 @@ function AddCustomer(props) {
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
+            <Button variant='contained' onClick={handleClickOpen}>
                 Add customer
             </Button>
             <Dialog open={open} onClose={handleClose}>
