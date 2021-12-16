@@ -8,7 +8,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
-import Slider from '@mui/material/Slider';
 
 function AddTraining(props) {
 
