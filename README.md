@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# TrainerApp
+
+## This is my project for a front end programming course.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
